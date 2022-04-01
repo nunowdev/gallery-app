@@ -10,6 +10,9 @@
 
 body {
   background-color: whitesmoke;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -161,11 +164,10 @@ select:focus {
 }
 
 #searchicon {
-  font-size: 32px;
+  font-size: 24px;
   position: absolute;
   right: 26%;
-  top: 180%;
-  font-size: 26px;
+  top: 100%;
   opacity: 0;
   transition: all 250ms ease;
 }
@@ -183,7 +185,7 @@ select:focus {
 #search__header {
   display: flex;
   width: 100%;
-  height: 326px;
+  height: 80px;
   background-color: white;
   flex-direction: column;
   margin: 0 auto;
@@ -259,12 +261,13 @@ select:focus {
 
 #search:hover > .fa-magnifying-glass {
   opacity: 1;
+  color: #4cbfa6;
 }
 
 /* SEARCH MAIN */
 
 #search__main {
-  height: calc(100vh - 326px);
+  height: calc(100vh - 200px);
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -281,6 +284,8 @@ select:focus {
 }
 
 .grid__container {
+  min-height: 40.6vh;
+  max-height: 70vh;
   max-width: 1600px;
   min-width: 80%;
   padding-left: 20px;
@@ -292,12 +297,15 @@ select:focus {
   grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   grid-gap: 20px;
   justify-items: center;
+  min-height: 100%;
+  padding-bottom: 150px;
 }
 
 .grid__img {
   min-width: 350px;
   max-width: 350px;
-  max-height: 400px;
+  min-height: 270px;
+  max-height: 270px;
   border-radius: 10px;
   box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 1);
   transition: all 250ms ease;
@@ -306,10 +314,23 @@ select:focus {
   transform: scale(1.05);
 }
 
-footer {
-  min-height: 100px;
-  width: 100%;
-  background-color: #222222;
+#nosearchtitle {
+  font-size: 40px;
+}
+
+#nosearchimage {
+  display: flex;
+  width: 500px;
+  height: 450px;
+  background-image: url("../src/assets/undraw_search.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin-top: 50px;
+}
+
+.searchnone {
+  display: none;
 }
 
 /* SMALL PHONES, TABLETS, LARGE SMARTPHONES */

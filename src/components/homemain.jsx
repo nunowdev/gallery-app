@@ -36,13 +36,13 @@ const Homemain = () => {
               />
             </button>
           </div>
-          <div
-            className="camera__image"
-            data-aos="fade-up"
-            data-aos-delay="800"
-            data-aos-duration="1200"
-          ></div>
         </div>
+        <div
+          className="camera__image"
+          data-aos="fade-up"
+          data-aos-delay="800"
+          data-aos-duration="1200"
+        ></div>
       </section>
       <script src="app.js" defer></script>
       <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

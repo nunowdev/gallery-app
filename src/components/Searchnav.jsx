@@ -15,7 +15,7 @@ const Searchnav = () => {
               <Link to="/">Home</Link>
             </li>
             <li className="search__nav__item" id="search">
-              <a>Search</a>
+              <a href="/">Search</a>
               <FontAwesomeIcon
                 icon="fa-solid fa-magnifying-glass"
                 id="searchicon"
@@ -23,28 +23,15 @@ const Searchnav = () => {
             </li>
             <li
               className="search__nav__item"
-              onclick='window.alert("This feature has not been implemented.")'
+              onClick={() =>
+                window.alert("This feature has not been implemented.")
+              }
             >
-              <a>Contact</a>
+              <a href="/">Contact</a>
             </li>
           </ul>
         </div>
       </nav>
-      <div
-        className="input__wrapper"
-        data-aos="fade-up"
-        data-aos-delay="500"
-        data-aos-duration="1000"
-      >
-        <div className="image__search">
-          <h1 className="search__title">Search for images</h1>
-        </div>
-        <input
-          type="text"
-          placeholder="Maybe a city landscape? :D"
-          className="search__input"
-        />
-      </div>
     </header>
   );
 };
