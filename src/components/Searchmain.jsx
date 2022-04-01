@@ -8,16 +8,16 @@ const Searchmain = () => {
   const searchInput = document.getElementById("searchInput");
 
   async function getPhotos() {
-    const requestedData = await Axios.get(
-      `https://api.unsplash.com/search/photos?query=${searchInput.value}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&`
-    );
     setSearchedWord(searchInput.value);
+    const requestedData = await Axios.get(
+      `https://api.unsplash.com/search/photos?query=${searchedWord}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&`
+    );
+
     for (let i = 0; i < 10; ++i) {
       arrayTest.push(requestedData.data.results[i].urls.regular);
     }
     setPhotosArr(arrayTest);
-    console.log(photosArr);
-    console.log(typeof arrayTest);
+    console.log(arrayTest);
     //////////////////////////////////////////////////////////////////////
   }
 
