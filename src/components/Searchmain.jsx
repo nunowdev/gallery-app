@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Axios from "axios";
 
 const Searchmain = () => {
@@ -6,11 +6,12 @@ const Searchmain = () => {
   const arrayTest = [];
   const [searchedWord, setSearchedWord] = useState("");
   const searchInput = document.getElementById("searchInput");
+  const inputRef = useRef();
 
   async function getPhotos() {
     setSearchedWord(searchInput.value);
     const requestedData = await Axios.get(
-      `https://api.unsplash.com/search/photos?query=${searchedWord}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&`
+      `https://api.unsplash.com/search/photos?query=${inputRef.current.value}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&`
     );
 
     for (let i = 0; i < 10; ++i) {
@@ -38,6 +39,7 @@ const Searchmain = () => {
           className="search__input"
           id="searchInput"
           onInput={getPhotos}
+          ref={inputRef}
         />
         {/* <div
           className="searchnone"
