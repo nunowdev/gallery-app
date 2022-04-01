@@ -10,9 +10,6 @@
 
 body {
   background-color: whitesmoke;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 header {
@@ -109,6 +106,11 @@ ul {
 
 #main {
   height: calc(100vh - 80px);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .main__container {

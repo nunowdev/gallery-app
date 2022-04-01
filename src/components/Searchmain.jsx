@@ -17,7 +17,7 @@ const Searchmain = () => {
     }
     setPhotosArr(arrayTest);
     console.log(photosArr);
-    console.log(arrayTest);
+    console.log(typeof arrayTest);
     //////////////////////////////////////////////////////////////////////
   }
 
@@ -39,14 +39,15 @@ const Searchmain = () => {
           id="searchInput"
           onInput={getPhotos}
         />
-        <div
+        {/* <div
+          className="searchnone"
           id="nosearchimage"
           data-aos="fade-up"
           data-aos-delay="800"
           data-aos-duration="1200"
-        ></div>
+        ></div> */}
       </div>
-      <h1 className="searched__title" id="searchtitle">{`${searchedWord}`}</h1>
+      {/* <h1 className="searched__title" id="searchtitle">{`${searchedWord}`}</h1> */}
       <div className="grid__container">
         <div className="grid" id="gridid">
           {photosArr
