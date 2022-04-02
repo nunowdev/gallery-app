@@ -5,10 +5,10 @@ const Searchmain = () => {
   const [photosArr, setPhotosArr] = useState([]);
   const arrayTest = [];
   const [searchedWord, setSearchedWord] = useState("");
-  const searchInput = document.getElementById("searchInput");
   const inputRef = useRef();
 
   async function getPhotos() {
+    const searchInput = document.getElementById("searchInput");
     setSearchedWord(searchInput.value);
     const requestedData = await Axios.get(
       `https://api.unsplash.com/search/photos?query=${inputRef.current.value}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&`
@@ -18,8 +18,12 @@ const Searchmain = () => {
       arrayTest.push(requestedData.data.results[i].urls.regular);
     }
     setPhotosArr(arrayTest);
-    console.log(arrayTest);
+    console.log(photosArr);
+
     //////////////////////////////////////////////////////////////////////
+    //https://swr.vercel.app/docs/data-fetching
+
+    // TESTA AQUILO TESTA AQUILO TESTA AQUILO
   }
 
   return (
