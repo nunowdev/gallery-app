@@ -14,7 +14,7 @@ const Searchmain = () => {
   function homeSearch() {
     setSearch(homeData);
     if (search !== null) {
-      for (let i = 0; i > 30; ++i) {
+      for (let i = 0; i < 30; ++i) {
         photos.push(homeData.data.results[i]);
       }
     }
@@ -29,7 +29,7 @@ const Searchmain = () => {
     setSearch(requestedData);
     console.log(search);
     if (search !== null) {
-      for (let i = 0; i > 30; ++i) {
+      for (let i = 0; i < 30; ++i) {
         photos.push(requestedData.data.results[i]);
         console.log(photos);
       }
