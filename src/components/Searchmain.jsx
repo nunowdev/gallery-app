@@ -1,24 +1,43 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Axios from "axios";
 
+// S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU
+//`https://api.unsplash.com/search/photos?query=dogs&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
+
 const Searchmain = () => {
-  const [photosArr, setPhotosArr] = useState([]);
-  const arrayTest = [];
-  const inputRef = useRef();
-  const [searchedWord, setSearchedWord] = useState("");
+  const searchRef = useRef();
+  const [search, setSearch] = useState([]);
 
-  async function getPhotos() {
-    setSearchedWord(inputRef.current.value);
-    const requestedData = await Axios.get(
-      `https://api.unsplash.com/search/photos?query=${searchedWord}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&order_by=relevant`
-    );
-    for (let i = 0; i < 10; i++) {
-      arrayTest.push(requestedData.data.results[i].urls.regular);
+  const [photos] = useState([]);
+  const homeData = JSON.parse(localStorage.getItem("homeData"));
+
+  function homeSearch() {
+    setSearch(homeData);
+    if (search !== null) {
+      for (let i = 0; i > 30; ++i) {
+        photos.push(homeData.data.results[i]);
+      }
     }
-
-    setPhotosArr(arrayTest);
-    // console.log(photosArr);
+    //console.log(photos);
   }
+
+  async function handleSearch() {
+    setSearch([]);
+    let requestedData = await Axios.get(
+      `https://api.unsplash.com/search/photos?query=${searchRef.current.value}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
+    );
+    setSearch(requestedData);
+    console.log(search);
+    if (search !== null) {
+      for (let i = 0; i > 30; ++i) {
+        photos.push(requestedData.data.results[i]);
+        console.log(photos);
+      }
+    }
+  }
+  useEffect(() => {
+    homeSearch();
+  }, []);
 
   return (
     <main id="search__main">
@@ -33,19 +52,29 @@ const Searchmain = () => {
         </div>
         <input
           type="text"
-          placeholder="Maybe a city landscape? :D"
           className="search__input"
-          id="searchInput"
-          onInput={getPhotos}
-          ref={inputRef}
+          autoComplete="off"
+          ref={searchRef}
+          onChange={handleSearch}
+          onKeyPress={(event) => event.key === "Enter" && handleSearch()}
         />
       </div>
-      {/* <h1 className="searched__title" id="searchtitle">{`${searchedWord}`}</h1> */}
-      <div className="grid__container">
-        <div className="grid" id="gridid">
-          {photosArr.map((photo) => (
-            <img src={photo} key={photo} className="grid__img" alt=""></img>
-          ))}
+      <div className="content__container" id="content__container">
+        <h1 className="searched__title" id="searchtitle">
+          Showing results for:
+          <span className="colored">{` Searched Value`}</span>
+        </h1>
+        <div className="grid__container">
+          <div className="grid" id="gridid">
+            {photos.map((photo) => (
+              <img
+                src={photo.urls.regular || null}
+                key={photo.id}
+                className="grid__img"
+                alt=""
+              ></img>
+            ))}
+          </div>
         </div>
       </div>
     </main>

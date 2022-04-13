@@ -10,6 +10,7 @@
 
 body {
   background-color: whitesmoke;
+  height: 100%;
 }
 
 header {
@@ -230,18 +231,21 @@ select:focus {
 }
 
 .image__search {
+  width: 100%;
   display: flex;
-  width: 50%;
+  justify-content: center;
+  align-items: center;
 }
 
 .search__input {
   padding: 6px 15px;
   width: 50%;
-  border: 2px solid #767676;
+  border: 2px solid #4cbfa6;
   border-radius: 2px;
   color: black;
   font-size: 20px;
   margin-top: 15px;
+  text-align: center;
 }
 
 .search__input::placeholder {
@@ -269,15 +273,16 @@ select:focus {
 /* SEARCH MAIN */
 
 #search__main {
-  height: calc(100vh - 200px);
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .search__title {
-  width: 100%;
+  width: 4 00px;
 }
 
 .searched__title {
@@ -285,19 +290,28 @@ select:focus {
   margin: 20px auto;
 }
 
+.content__container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
 .grid__container {
-  min-height: 40.6vh;
-  max-height: 70vh;
+  height: 60vh;
   max-width: 1600px;
-  min-width: 60%;
-  padding-left: 20px;
-  margin: 40px auto;
+  min-width: 100%;
 }
 
 .grid {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 461px));
   grid-gap: 20px;
   justify-items: center;
   min-height: 100%;
@@ -308,7 +322,8 @@ select:focus {
   min-width: 350px;
   max-width: 350px;
   min-height: 240px;
-  max-height: 240px;
+  max-height: 300px;
+
   border-radius: 10px;
   box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 1);
   transition: all 250ms ease;
@@ -323,6 +338,60 @@ select:focus {
 
 .searchnone {
   display: none !important;
+}
+
+#pagination {
+  width: 100%;
+  height: 800px;
+}
+
+/* #pagination {
+  width: 100%;
+  height: 1200px;
+  display: flex;
+  align-items: flex-end;
+} */
+
+.pagination {
+  min-width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.pagination__list {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pagination__list--item {
+  margin-right: 10px;
+  font-size: 16px;
+  width: 2%;
+  height: 80%;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #4cbfa6;
+  transition: all 250ms ease;
+}
+
+.pagination__link {
+  color: white;
+  font-weight: bold;
+}
+
+.pagination__link:hover {
+  color: white;
+}
+.pagination__list--item:hover {
+  transform: scale(1.1);
 }
 
 /* SMALL PHONES, TABLETS, LARGE SMARTPHONES */

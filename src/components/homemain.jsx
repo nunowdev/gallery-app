@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 AOS.init();
 
-const Homemain = () => {
+function Homemain() {
+  const navigate = useNavigate();
+  const homeInputRef = useRef();
+
+  async function onSearch() {
+    let homeData;
+    let searchedWord = homeInputRef.current.value;
+    console.log(searchedWord);
+    console.log(typeof searchedWord);
+    if (searchedWord.length !== 0) {
+      homeData = await Axios.get(
+        `https://api.unsplash.com/search/photos?query=${searchedWord}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
+      );
+      console.log(homeData);
+      localStorage.setItem("homeData", JSON.stringify(homeData));
+    } else {
+      homeData = null;
+      localStorage.setItem("homeData", null);
+    }
+  }
+
   return (
     <>
       <section id="main">
@@ -28,8 +50,18 @@ const Homemain = () => {
               type="text"
               placeholder="Search Images"
               className="home__input"
+              ref={homeInputRef}
+              onInput={onSearch}
+              // onKeyPress={(event) => event.key === "Enter" && onSearch()}
             />
-            <button className="input__button">
+            <button
+              className="input__button"
+              onClick={() =>
+                setTimeout(() => {
+                  navigate("/Search");
+                }, 1000)
+              }
+            >
               <FontAwesomeIcon
                 icon="fa-solid fa-magnifying-glass"
                 id="homesearchicon"
@@ -49,6 +81,6 @@ const Homemain = () => {
       <script>AOS.init();</script>
     </>
   );
-};
+}
 
 export default Homemain;

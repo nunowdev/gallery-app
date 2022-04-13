@@ -2,13 +2,13 @@ import React from "react";
 import Searchmain from "../components/Searchmain";
 import Searchnav from "../components/Searchnav";
 
-const Search = () => {
+function Search() {
   return (
     <>
       <Searchnav />
       <Searchmain />
     </>
   );
-};
+}
 
 export default Search;

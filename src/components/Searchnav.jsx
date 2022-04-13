@@ -12,10 +12,10 @@ const Searchnav = () => {
           </div>
           <ul id="search__list">
             <li className="search__nav__item">
-              <Link to="/">Home</Link>
+              <Link to="/#">Home</Link>
             </li>
             <li className="search__nav__item" id="search">
-              <a href="/">Search</a>
+              <Link to="/#">Search</Link>
               <FontAwesomeIcon
                 icon="fa-solid fa-magnifying-glass"
                 id="searchicon"
@@ -27,7 +27,7 @@ const Searchnav = () => {
                 window.alert("This feature has not been implemented.")
               }
             >
-              <a href="/">Contact</a>
+              <Link to="/">Contact</Link>
             </li>
           </ul>
         </div>
