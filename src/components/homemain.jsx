@@ -51,8 +51,7 @@ function Homemain() {
               placeholder="Search Images"
               className="home__input"
               ref={homeInputRef}
-              onInput={onSearch}
-              // onKeyPress={(event) => event.key === "Enter" && onSearch()}
+              onKeyPress={(event) => event.key === "Enter" && onSearch()}
             />
             <button
               className="input__button"
