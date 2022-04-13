@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Axios from "axios";
+import AOS from "aos";
 
 // S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU
 //`https://api.unsplash.com/search/photos?query=dogs&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
@@ -59,7 +60,13 @@ const Searchmain = () => {
           onKeyPress={(event) => event.key === "Enter" && handleSearch()}
         />
       </div>
-      <div className="content__container" id="content__container">
+      <div
+        className="content__container"
+        id="content__container"
+        data-aos="fade-up"
+        data-aos-delay="500"
+        data-aos-duration="1000"
+      >
         <h1 className="searched__title" id="searchtitle">
           Showing results for:
           <span className="colored">{` Searched Value`}</span>
