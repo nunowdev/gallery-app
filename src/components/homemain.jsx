@@ -10,20 +10,15 @@ function Homemain() {
   const navigate = useNavigate();
   const homeInputRef = useRef();
 
-  async function onSearch() {
-    let homeData;
-    let searchedWord = homeInputRef.current.value;
-    console.log(searchedWord);
-    console.log(typeof searchedWord);
-    if (searchedWord.length !== 0) {
-      homeData = await Axios.get(
-        `https://api.unsplash.com/search/photos?query=${searchedWord}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
-      );
-      console.log(homeData);
-      localStorage.setItem("homeData", JSON.stringify(homeData));
+  function onSearch() {
+    if (homeInputRef.current.value != 0) {
+      localStorage.setItem("homeData", homeInputRef.current.value);
+      console.log(homeInputRef.current.value);
+      setTimeout(() => {
+        navigate("/Search");
+      }, 1000);
     } else {
-      homeData = null;
-      localStorage.setItem("homeData", null);
+      localStorage.removeItem("homeData");
     }
   }
 

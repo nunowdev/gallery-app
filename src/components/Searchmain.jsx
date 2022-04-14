@@ -1,43 +1,55 @@
 import React, { useState, useRef, useEffect } from "react";
 import Axios from "axios";
 import AOS from "aos";
+import nosearch from "../assets/undraw_search.png";
+import Pagination from "./Pagination";
 
 // S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU
 //`https://api.unsplash.com/search/photos?query=dogs&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
 
 const Searchmain = () => {
-  const searchRef = useRef();
-  const [search, setSearch] = useState([]);
+  const homeSearchInput = localStorage.getItem("homeData");
+  const [searchValue, setSearchValue] = useState(homeSearchInput);
+  const inputTextRef = useRef();
 
-  const [photos] = useState([]);
-  const homeData = JSON.parse(localStorage.getItem("homeData"));
-
-  function homeSearch() {
-    setSearch(homeData);
-    if (search !== null) {
-      for (let i = 0; i < 30; ++i) {
-        photos.push(homeData.data.results[i]);
-      }
+  function handleSearch() {
+    searchValue === [] ? setSearchValue(null) : renderPhotos(searchValue);
+    if (searchValue !== null) {
+      localStorage.removeItem("homeData");
+      localStorage.setItem("displaySearch", searchValue);
     }
-    //console.log(photos);
   }
 
-  async function handleSearch() {
-    setSearch([]);
-    let requestedData = await Axios.get(
-      `https://api.unsplash.com/search/photos?query=${searchRef.current.value}&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
+  async function renderPhotos(searchValue) {
+    setPhotos([]);
+    const requestedData = await Axios.get(
+      `https://api.unsplash.com/search/photos?query=${
+        searchValue ||
+        (homeSearchInput
+          ? homeSearchInput
+          : localStorage.getItem("displaySearch"))
+      }&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
     );
-    setSearch(requestedData);
-    console.log(search);
-    if (search !== null) {
-      for (let i = 0; i < 30; ++i) {
-        photos.push(requestedData.data.results[i]);
-        console.log(photos);
-      }
-    }
+    setPhotos(requestedData.data.results);
   }
+
+  const [photos, setPhotos] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [photosPerPage] = useState(6);
+
+  // Get Current Photos
+
+  const indexOfLastPhoto = currentPage * photosPerPage;
+  const indexOfFirstPhoto = indexOfLastPhoto - photosPerPage;
+  const currentPhotos = photos.slice(indexOfFirstPhoto, indexOfLastPhoto);
+
+  // Change Page
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Hide things when no thing is searched
   useEffect(() => {
-    homeSearch();
+    renderPhotos();
   }, []);
 
   return (
@@ -55,11 +67,12 @@ const Searchmain = () => {
           type="text"
           className="search__input"
           autoComplete="off"
-          ref={searchRef}
-          onChange={handleSearch}
+          value={searchValue || ""}
+          onChange={(e) => setSearchValue(e.target.value)}
           onKeyPress={(event) => event.key === "Enter" && handleSearch()}
         />
       </div>
+
       <div
         className="content__container"
         id="content__container"
@@ -67,20 +80,32 @@ const Searchmain = () => {
         data-aos-delay="500"
         data-aos-duration="1000"
       >
-        <h1 className="searched__title" id="searchtitle">
-          Showing results for:
-          <span className="colored">{` Searched Value`}</span>
+        <h1 className="searched__title" id="searchtitle" ref={inputTextRef}>
+          Showing results for:&nbsp;
+          <span className="colored">{searchValue}</span>
         </h1>
+        <Pagination
+          photosPerPage={photosPerPage}
+          totalPhotos={photos.length}
+          paginate={paginate}
+          searchValue={searchValue}
+        />
         <div className="grid__container">
           <div className="grid" id="gridid">
-            {photos.map((photo) => (
-              <img
-                src={photo.urls.regular || null}
-                key={photo.id}
-                className="grid__img"
-                alt=""
-              ></img>
-            ))}
+            {(homeSearchInput || searchValue) !== null &&
+            (homeSearchInput || searchValue) !== "" &&
+            photos[0] !== undefined ? (
+              currentPhotos.map((photo) => (
+                <img
+                  src={photo.urls.regular || null}
+                  key={photo.id}
+                  className="grid__img"
+                  alt=""
+                ></img>
+              ))
+            ) : (
+              <img src={nosearch} alt=""></img>
+            )}
           </div>
         </div>
       </div>
