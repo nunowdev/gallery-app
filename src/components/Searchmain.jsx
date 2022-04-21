@@ -104,7 +104,7 @@ const Searchmain = () => {
                 ></img>
               ))
             ) : (
-              <img src={nosearch} alt=""></img>
+              <img src={nosearch} alt="" class="nosearchimage"></img>
             )}
           </div>
         </div>

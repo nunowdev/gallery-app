@@ -371,7 +371,7 @@ select:focus {
 .pagination__list--item {
   margin-right: 10px;
   font-size: 16px;
-  width: 2%;
+  min-width: 40px;
   height: 80%;
   border: 2px solid black;
   display: flex;
@@ -404,9 +404,12 @@ select:focus {
     font-size: 20px;
   }
 
-  .camera__image {
-    width: 400px;
-    height: 300px;
+  .nosearchimage {
+    width: 90%;
+  }
+
+  .searched__title {
+    font-size: 30px;
   }
 }
 
@@ -432,7 +435,7 @@ select:focus {
   }
 
   .grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   }
   .grid__img {
     min-width: 300px;
@@ -451,5 +454,8 @@ select:focus {
   .grid__img {
     min-width: 250px;
     max-width: 250px;
+  }
+  .pagination__list--item {
+    min-width: 30px;
   }
 }
