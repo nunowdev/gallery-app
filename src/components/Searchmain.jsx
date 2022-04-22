@@ -3,6 +3,7 @@ import Axios from "axios";
 import AOS from "aos";
 import nosearch from "../assets/undraw_search.png";
 import Pagination from "./Pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU
 //`https://api.unsplash.com/search/photos?query=dogs&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
@@ -10,6 +11,7 @@ import Pagination from "./Pagination";
 const Searchmain = () => {
   const homeSearchInput = localStorage.getItem("homeData");
   const [searchValue, setSearchValue] = useState(homeSearchInput);
+  const [loading, setLoading] = useState(false);
   const inputTextRef = useRef();
 
   function handleSearch() {
@@ -21,6 +23,7 @@ const Searchmain = () => {
   }
 
   async function renderPhotos(searchValue) {
+    setLoading(true);
     setPhotos([]);
     const requestedData = await Axios.get(
       `https://api.unsplash.com/search/photos?query=${
@@ -30,6 +33,7 @@ const Searchmain = () => {
           : localStorage.getItem("displaySearch"))
       }&client_id=S1V-XtrLp6rvngz6YkmCg9tiEFlsZODnssVAEZTHYdU&per_page=30`
     );
+    setLoading(false);
     setPhotos(requestedData.data.results);
   }
 
@@ -92,19 +96,25 @@ const Searchmain = () => {
         />
         <div className="grid__container">
           <div className="grid" id="gridid">
-            {(homeSearchInput || searchValue) !== null &&
-            (homeSearchInput || searchValue) !== "" &&
-            photos[0] !== undefined ? (
-              currentPhotos.map((photo) => (
-                <img
-                  src={photo.urls.regular || null}
-                  key={photo.id}
-                  className="grid__img"
-                  alt=""
-                ></img>
-              ))
+            {!loading ? (
+              <>
+                {(homeSearchInput || searchValue) !== null &&
+                (homeSearchInput || searchValue) !== "" &&
+                photos[0] !== undefined ? (
+                  currentPhotos.map((photo) => (
+                    <img
+                      src={photo.urls.regular || null}
+                      key={photo.id}
+                      className="grid__img"
+                      alt=""
+                    ></img>
+                  ))
+                ) : (
+                  <img src={nosearch} alt="" className="nosearchimage"></img>
+                )}
+              </>
             ) : (
-              <img src={nosearch} alt="" class="nosearchimage"></img>
+              <FontAwesomeIcon icon="fa-solid fa-spinner" />
             )}
           </div>
         </div>
